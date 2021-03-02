@@ -765,25 +765,23 @@
             <paragraphs>
                 <title><tage>ie</tage>, <tage>eg</tage>, <tage>ca</tage>, <tage>vs</tage>, <tage>etc</tage>, <ie />, <eg />, <ca />, <vs />, <etc /></title>
                 <p>A small collection of frequently-used Latin abbreviations, with attempts to handle the tricky periods wisely in <latex /> output.  Strictly speaking <bc /> is not Latin, but we include it for completeness.  Tags are always lowercase, no punctuation, usually two letters.</p>
-                <sidebyside>
-                    <tabular>
-                        <row><cell>Tag</cell><cell>Realization</cell><cell>Meaning</cell></row>
-                        <!--  -->
-                        <row><cell><c>ad</c></cell>    <cell><ad/>    </cell><cell><foreign>anno Domini</foreign>, in the year of the Lord</cell>      </row>
-                        <row><cell><c>am</c></cell>    <cell><am/>    </cell><cell><foreign>ante meridiem</foreign>, before midday</cell>              </row>
-                        <row><cell><c>bc</c></cell>    <cell><bc/>    </cell><cell>English, before Christ</cell>                                       </row>
-                        <row><cell><c>ca</c></cell>    <cell><ca/>    </cell><cell><foreign>circa</foreign>, about</cell>                              </row>
-                        <row><cell><c>eg</c></cell>    <cell><eg/>    </cell><cell><foreign>exempli gratia</foreign>, for example</cell>               </row>
-                        <row><cell><c>etal</c></cell>  <cell><etal/>  </cell><cell><foreign>et alia</foreign>, and others</cell>                       </row>
-                        <row><cell><c>etc</c></cell>   <cell><etc/>   </cell><cell><foreign>et caetera</foreign>, and the rest</cell>                  </row>
-                        <row><cell><c>ie</c></cell>    <cell><ie/>    </cell><cell><foreign>id est</foreign>, in other words</cell>                    </row>
-                        <row><cell><c>nb</c></cell>    <cell><nb/>    </cell><cell><foreign>nota bene</foreign>, note well</cell>                      </row>
-                        <row><cell><c>pm</c></cell>    <cell><pm/>    </cell><cell><foreign>post meridiem</foreign>, after midday</cell>               </row>
-                        <row><cell><c>ps</c></cell>    <cell><ps/>    </cell><cell><foreign>post scriptum</foreign>, after what has been written</cell></row>
-                        <row><cell><c>vs</c></cell>    <cell><vs/>    </cell><cell><foreign>versus</foreign>, against</cell>                           </row>
-                        <row><cell><c>viz</c></cell>   <cell><viz/>   </cell><cell><foreign>videlicet</foreign>, namely</cell>                         </row>
-                    </tabular>
-                </sidebyside>
+                <tabular>
+                    <row><cell>Tag</cell><cell>Realization</cell><cell>Meaning</cell></row>
+                    <!--  -->
+                    <row><cell><c>ad</c></cell>    <cell><ad/>    </cell><cell><foreign>anno Domini</foreign>, in the year of the Lord</cell>      </row>
+                    <row><cell><c>am</c></cell>    <cell><am/>    </cell><cell><foreign>ante meridiem</foreign>, before midday</cell>              </row>
+                    <row><cell><c>bc</c></cell>    <cell><bc/>    </cell><cell>English, before Christ</cell>                                       </row>
+                    <row><cell><c>ca</c></cell>    <cell><ca/>    </cell><cell><foreign>circa</foreign>, about</cell>                              </row>
+                    <row><cell><c>eg</c></cell>    <cell><eg/>    </cell><cell><foreign>exempli gratia</foreign>, for example</cell>               </row>
+                    <row><cell><c>etal</c></cell>  <cell><etal/>  </cell><cell><foreign>et alia</foreign>, and others</cell>                       </row>
+                    <row><cell><c>etc</c></cell>   <cell><etc/>   </cell><cell><foreign>et caetera</foreign>, and the rest</cell>                  </row>
+                    <row><cell><c>ie</c></cell>    <cell><ie/>    </cell><cell><foreign>id est</foreign>, in other words</cell>                    </row>
+                    <row><cell><c>nb</c></cell>    <cell><nb/>    </cell><cell><foreign>nota bene</foreign>, note well</cell>                      </row>
+                    <row><cell><c>pm</c></cell>    <cell><pm/>    </cell><cell><foreign>post meridiem</foreign>, after midday</cell>               </row>
+                    <row><cell><c>ps</c></cell>    <cell><ps/>    </cell><cell><foreign>post scriptum</foreign>, after what has been written</cell></row>
+                    <row><cell><c>vs</c></cell>    <cell><vs/>    </cell><cell><foreign>versus</foreign>, against</cell>                           </row>
+                    <row><cell><c>viz</c></cell>   <cell><viz/>   </cell><cell><foreign>videlicet</foreign>, namely</cell>                         </row>
+                </tabular>
             </paragraphs>
 
             <paragraphs>
@@ -1015,7 +1013,7 @@
             <title>Variations</title>
 
             <p>There are some variant uses for the <tag>xref</tag> tag.<ul>
-                <li>Replace <attr>ref</attr> by <attr>provisional</attr> and give it a value with some simple text like <c>subsection on eagle habitat</c> and you will get reminders that once you write this future subsection you need to link it in right here.  This is just a convenience for authors during the early stages of a writing project.</li>
+                <li>Replace <attr>ref</attr> by <attr>provisional</attr> and give it a value with some simple text like <c>subsection on eagle habitat</c> and you will get reminders that once you write this future subsection you need to link it in right here.  This is just a convenience for authors during the early stages of a writing project (see <xref ref="processing-author-tools" /> for details).</li>
 
                 <li>Replace <attr>ref</attr> by the pair <attr>first</attr> and <attr>last</attr>.  Provide attribute values just as you would for <attr>ref</attr>.  The code will check that the targets have the exact same tag, and that the order is correct.  You will get a link that looks like a range, separated by an en dash.  As a link, only <attr>first</attr> will be used for the linking mechanism (<ie />, one link is generated, not two).  Experiment with <attr>text</attr> and content overrides.</li>
 
@@ -1187,6 +1185,8 @@
 
         <p>A division <em>must</em> contain a <tag>title</tag>, and may contain one or more index entries (see <xref ref="topic-index" />), which should appear before anything else.  Any division may be unstructured, with just a sequence of <term>top-level content</term><idx>top-level content</idx> such as paragraphs, figures, lists, theorems, <etc />  Or a division may be structured, and in this case it must follow a prescribed pattern.  There may be a single, optional <tag>introduction</tag>, filled with top-level content, followed by a sequence of at least one of the appropriate divisions, ending with a single, optional <tag>conclusion</tag>, filled with top-level content.  It is an error to begin with a run of top-level content inside a division and then begin to use divisions.  (The solution is to make the initial content an <tag>introduction</tag> and/or one or several divisions.)</p>
 
+        <p>A <tag>book</tag> may be structured into parts.  After the <tag>frontmatter</tag> and before the <tag>backmatter</tag> there may be a sequence of <tag>part</tag>.  These elements may carry a <tag>title</tag>, and not much else, besides a substantial sequence of <tag>chapter</tag>.  The main effect is to get an extra level of division in the Table of Contents.  For print and <init>PDF</init> there is an entire page devoted to the title and number of the part.  The default numbering is <term>decorative</term>, which means that the chapters are numbered consecutively from the start of the book and do not reset to one at the start of each part.  It is as if the parts were not even there.  The alternative is that parts are <term>structural</term>.  Now each part begins with Chapter 1.  There are other more subtle differences, such as cross-references use a part number if, and only if,  the trip from the cross-reference to its target crosses a boundary of two parts.  The two approaches to part structure may be set via the publisher file, see <xref ref="publisher-file-numbering"/>.</p>
+
         <p>There are exceptions to the above.  For one, <tag>paragraphs</tag> is an anomalous division, as a sort of lightweight sectioning command.  It may appear in any division, at any location within a division, it may not be divided further (it is a leaf of the document tree), it never gets a number, and its title is formatted in a subsidiary way.  I especially like to use this in a two- or three-page <tag>article</tag> that has no other divisions at all.  Typical presentation has the title in bold, without much change in font size (if at all), inline with the first paragraph, and perhaps a bit of vertical space as it begins and ends.  Despite the name, it may contain more than just paragraphs, so may contain any top-level-content that would go in any other division.</p>
 
         <p>Two other anomalous divisions are <tag>exercises</tag> and <tag>references</tag>.  These can be placed as a final component of any division from <tag>chapter</tag> on down.  So for example, an <tag>exercises</tag> could be a peer of several <tag>section</tag>s, contained within a structured <tag>chapter</tag>, and in this case would behave similar to the other <tag>section</tag>s.  Or an unstructured <tag>chapter</tag> may have a sequence of paragraphs, figures, examples, and the like, and conclude with a single <tag>exercises</tag>.  Detail on allowed content and behavior are in <xref ref="topic-exercises" /> and <xref ref="topic-references" />, respectively.</p>
@@ -1197,7 +1197,7 @@
         <idx>mathematics</idx>
 
         <introduction>
-            <p>As mentioned in the overview, <xref ref="overview-math" />, we use <latex /> syntax for mathematics.  In order to allow for quality display in <init>HTML</init>, and other electronic formats, this limits us to the subset of <latex /> supported by the very capable <url href="https://www.mathjax.org/">MathJax</url> Javascript library.  Generally this looks like the <c>amsmath</c><idx><c>amsmath</c></idx> package maintained by the American Mathematical Society at their <url href="http://www.ams.org/publications/authors/tex/amslatex">AMS-LaTeX page</url>.  For a complete and precise list of what MathJax supports, see MathJax's <url href="http://docs.mathjax.org/en/latest/input/tex/macros/">Supported <tex/>/<latex/> commands</url><fn><c>http://docs.mathjax.org/en/latest/input/tex/macros/</c></fn> (2019-11-10: this link may be specific to MathJax 3.0, which we have not yet adopted.)</p>
+            <p>As mentioned in the overview, <xref ref="overview-math" />, we use <latex /> syntax for mathematics.  In order to allow for quality display in <init>HTML</init>, and other electronic formats, this limits us to the subset of <latex /> supported by the very capable <url href="https://www.mathjax.org/">MathJax</url> Javascript library.  Generally this looks like the <c>amsmath</c><idx><c>amsmath</c></idx> package maintained by the American Mathematical Society at their <url href="http://www.ams.org/publications/authors/tex/amslatex">AMS-LaTeX page</url>.  For a complete and precise list of what MathJax supports, see MathJax's <url href="http://docs.mathjax.org/en/latest/input/tex/macros/">Supported <tex/>/<latex/> commands</url><fn><c>http://docs.mathjax.org/en/latest/input/tex/macros/</c></fn> (2019-11-10: this link may be specific to MathJax 3.0, which we have not yet adopted.)  Once you have digested this more general section, be sure to also consult <xref ref="topic-mathematics-practices"/> for some very specific suggestions.</p>
         </introduction>
 
         <subsection>
@@ -1318,7 +1318,7 @@
             <p>For print output, do nothing additional and <latex /> will do its best to break your display between lines.  You can turn this behavior off by setting the <attr>break</attr> attribute on the <tag>md</tag> or <tag>mdn</tag> to the value <c>no</c>.  Once you do this, you can then selectively allow a page break after a given <tag>mrow</tag> by setting the <attr>break</attr> attribute on the <tag>mrow</tag> to the value <c>yes</c>.</p>
         </subsection>
 
-        <subsection>
+        <subsection xml:id="mathematics-macros">
             <title>Your Macros</title>
 
             <p>These go in the <tag>docinfo</tag> section, wrapped in a <tag>macros</tag><idx>macro</idx> element.  Keep them simple<mdash />one or two arguments, and one-line definitions.  This is not the place to be fancy, and not the place to try to end-run the structural aspects of <pretext />.  The idea is to define something like <c>\adjoint{A}</c> for the matrix <c>A</c> to be a superscript asterisk, and later you can change your mind and use a superscript dagger instead.  Keep in the spirit of <pretext /> and use readable, semantic macros.  For example, do not use <c>\a{A}</c> for the adjoint of <c>A</c>.</p>
@@ -1366,7 +1366,7 @@
             <p>Note that <em>any</em> text, other than whitespace, outside the <tag>m</tag> tag will disable this feature, <em>including punctuation</em>. However, according to the Chicago Manual of Style, 14e, 6.127, <q>Items carry no closing punctuation unless they consist of complete sentences.</q> So that comma at the end of your equation probably doesn't belong there anyway.</p>
         </subsection>
 
-        <subsection>
+        <subsection xml:id="mathematics-latex-packages">
             <title>Additional Packages</title>
 
             <p>Generally, you cannot add additional packages for use within mathematics.  The exception is a package with support available optionally within MathJax.  And it must have the same name as its normal <latex /> version.  Then set a <c>docinfo/latex-preamble/package</c> element to be the common name of the package.   (The <c>cancel</c> package is one such example.)</p>
@@ -1379,6 +1379,48 @@
 
             <p>There are two existing additional options, which we might want to remove some day for technical reasons.  Macros from the <c>extpfeil</c> extensible arrows package are available by default, and an <c>\sfrac{}{}</c> macro is available for appealing inline <q>slanted fractions.</q></p>
         </subsection>
+
+        <subsection xml:id="mathematics-notes">
+            <title>Notes</title>
+
+            <p>As mentioned at the start of this section, your use of <latex/> needs to also be supported by MathJax so that it may be rendered as part of an <init>HTML</init> page displayed in a web broswer.  In addition to the information at the start of <xref ref="topic-mathematics"/>, this subsection has some notes that may help you navigate this situation.<ol>
+                <li>Generally, MathJax supports commands available in the <c>amsmath</c> package.</li>
+                <li>You can construct, and use, your own macros, <em>but only for mathematics</em>, not for document structure or document management.  See <xref ref="mathematics-macros"/>.</li>
+                <li>Support for loading <q>extra</q> packages is extremely limited.  See <xref ref="mathematics-latex-packages"/>.</li>
+                <li>The <c>\matrix{}</c> command, and its friends (such as <c>\pmatrix{}</c>) are not supported by <latex/>, despite being recognized by MathJax.  So use environments like <c>\begin{matrix}</c> and <c>\begin{pmatrix}</c> (with their corresponding <c>\end{}</c>, of course) and you will get accurate results for both formats.</li>
+            </ol></p>
+        </subsection>
+    </section>
+
+    <section xml:id="topic-mathematics-practices">
+        <title>Mathematics Best Practices</title>
+        <idx><h>mathematics</h><h>best practices</h></idx>
+
+        <p>This is an incomplete list of suggestions you can consider when authoring mathematics in <latex/> syntax.  Some are definitely technical, and we are only aware of them from authors' experience and reports.  Many are meant to help in the conversion to braille.  Additions welcome.
+        <ol>
+            <li>
+                <title>Operator names</title>
+                <p>Sean Fitzpatrick reports on 2021-01-06 that the <latex/> macro construction<cd>\newcommand{\foo}{\operatorname{foo}}</cd> behaves better in Asymptote diagrams than<cd>
+                \DeclareMathOperator{\foo}{foo}</cd></p>
+            </li>
+            <li>
+                <title>Ratios</title>
+                <p>If you really intend to communicate a ratio with a colon, keep it super-simple, like <c>3:2</c> or <c>a:b</c>.  Do not wrap it in parentheses or other decorations, since then the colon will be communicated literally in braille.  For example, the index of a subgroup, <c>[G:H]</c>, should not be confused with a ratio.  If your ratio is kept simple, braille will use special syntax designed for ratios.</p>
+            </li>
+            <li>
+                <title>Avoid Nesting</title>
+                <p>It may seem  convenient to nest custom macro definitions. For example:
+                    <cd>
+                        <cline>\newcommand{\makered}[1]{{\color{red}{#1}}}</cline>
+                        <cline>\newcommand{\MAKERED}[1]{\textbf{\makered{#1}}}</cline>
+                    </cd>
+                The second macro definition uses the first macro. At least one <pretext/> conversion isolates macro defintions for use only on an as-needed basis. So here, if the author used <c>\MAKERED</c> without also using <c>\makered</c> close nearby, it would lead to an issue under that conversion, because <c>\makered</c> would be locally undefined. So we recommend defining each macro from the ground up. In this case:
+                    <cd>
+                        <cline>\newcommand{\MAKERED}[1]{\textbf{\color{red}{#1}}}</cline>
+                    </cd>
+                </p>
+            </li>
+        </ol></p>
     </section>
 
     <section xml:id="topic-lists">
@@ -1752,6 +1794,17 @@
                 <cline>  &lt;/solutions&gt;</cline>
                 <cline>&lt;/section&gt;</cline>
             </cd>would generate an entire subsection with hints and solutions to every worksheet and every project, located anywhere (including in subsections and subsubsections) in the section on Birds of Paradise.</p>
+
+            <p>
+                An <attr>admit</attr> attribute specifies some feature of an exercise's serial number
+                to determine whether its components are admitted into the solutions division.
+                (For example, the <q>serial number</q> of Exercise 1.2.3 is 3.)
+                Presently, the only options are <c>odd</c>, <c>even</c>, and the default <c>all</c>.
+                So, <pretext/> source like
+                <cd>&lt;solutions divisional="answer" admit="odd"&gt;</cd>
+                would generate a subsection with answers to only the odd-numbered divisional exercises.
+            </p>
+
         </subsection>
     </section>
 
@@ -1832,7 +1885,7 @@
 
                     draw(graph(Gaussian,min(a),max(a)),blue);
 
-                    // Optionally calculate "optimal" number 
+                    // Optionally calculate "optimal" number
                     // of bins a la Shimazaki and Shinomoto.
                     int N=bins(a);
 
@@ -1860,7 +1913,7 @@
 
                     draw(graph(Gaussian,min(a),max(a)),blue);
 
-                    // Optionally calculate "optimal" number 
+                    // Optionally calculate "optimal" number
                     // of bins a la Shimazaki and Shinomoto.
                     int N=bins(a);
 
@@ -1884,6 +1937,12 @@
                     </li>
                     <li>You may want to produce <init>SVG</init> versions of your diagrams for conversion to <init>EPUB</init>, and <init>PNG</init> versions for conversion to the <init>EPUB</init> precursor for Kindle format.</li>
                     <li><init>PDF</init> versions produced by the <c>pretext</c> script will not include the RPC extensions.  So <q>rotatable</q> 3D images rendered by the proprietary viewer, Adobe Acrobat, are not created, consistent with our open source philosophy.</li>
+                    
+                    <li>
+                        <p>Colors in Asymptote can be hard-coded using <c>rgb</c> syntax. Colors can also be defined at the top of an Asymptote file, to be referred to later. You may wish to produce <init>PDF</init> in both color (electronic) and black and white (print on demand) formats, and you probably do not want to maintain parallel source for both versions. Rather than writing (for example) <c>pen p=rgb(0,0,.7);</c> in your Asymptote code, you can write <c>pen p=curvepen1;</c>. Then, in the <tag>docinfo</tag> section of your document, you can add an <tag>asymptote-preamble</tag> and include the line <c>pen curvepen1=rgb(0,0,.7);</c>. Once you are ready to produce your black and white version, you need only change the definition of <c>curvepen1</c> in your <tag>asymptote-preamble</tag>.</p>
+
+                        <p>One note of caution: if your preamble includes Asymptote code that only works once certain libraries are loaded, you must include lines to import those libraries in your preamble. For example, to define a <c>material</c> you must first have the line <c>import three;</c>.</p>
+                    </li>
                 </ul></p>
 
                 <p>At this writing (2020-07-16) the <c>pretext</c> Python script requires a very new version of Asymptote in order to accurately produce all the versions described above.  There is no real way to do otherwise.  However, Asymptote provides a very useful <url href="http://asymptote.ualberta.ca/">web application</url><fn><c>asymptote.ualberta.ca</c></fn> written by Pedram Emami.  So you can create various output files <q>by hand</q> and download them for use.  More importantly, the web application is a great place to learn, experiment, and iterate as you become more skilled at building high-quality graphics to illustrate the concepts in your document.</p>
@@ -1893,6 +1952,7 @@
 
                     <p>If your project uses geometric or mathematical objects that are three-dimensional, invest some time in learning the Asymptote vector graphics language.  The interactive diagrams for your <init>HTML</init> output produced by Asymptote, in <init>WebGL</init> format, are outstanding and will greatly enhance your project.  (And the other static formats are similarly excellent.)</p>
                 </note>
+
             </subsubsection>
 
             <subsubsection xml:id="topic-latex-images">
@@ -2643,12 +2703,12 @@
             <p></p>
         </subsection>
 
-        <subsection>
-            <title>(*) Automatic Lists</title>
+        <subsection xml:id="automatic-lists">
+            <title>Automatic Lists</title>
 
             <p></p>
         </subsection>
-
+            <p>The <tag>row</tag> element accepts a <attr>header</attr> attribute with possible values of <c>no</c> (the default), <c>yes</c>, or <c>vertical</c>.  The latter is useful if space is at a premium (which always seems to be the case with tables), and the cells of a column are narrow and the heading is long.  The one restriction is that rows identified as having headers must be the initial (top) rows of the table and must be contiguous.</p>
         <subsection>
             <title>(*) Solutions</title>
 
@@ -2900,8 +2960,15 @@
     </section>
 
     <section xml:id="topic-automatic-lists">
-        <title>(*) Automatic Lists</title>
-        <p></p>
+        <title>Automatic Lists</title>
+
+        <p>Sometimes it is useful to have an automatic list of various elements of one kind in a book, other than the ones already available in a <pretext/> document.  The predefined ones include an index (see <xref ref="topic-index"/>) and a list of notation (see <xref ref="topic-notation"/>).  Examples of lists one might wish to create could include lists of titled figures, computational listing, or theorems.</p>
+
+        <p>To construct an automatic list, one uses a <tage>list-of</tage> element.  This tag has a required <attr>elements</attr> attribute, where the author limits the list to a certain tag.  This could be <c>elements="theorem"</c>, or a space-delimited list of tags like <c>elements="theorem fact corollary"</c>.</p>
+
+        <p>Although automatic lists may be most useful in backmatter, it is possible to use them for summarizing results or other items in a smaller part of your document.  Use the <attr>scope</attr> attribute to limit to the current <c>"section"</c> or <c>"part"</c>.  To organize the list better, use the <attr>divisions</attr> attribute to give structure with headings, such as <c>divisions="section subsection"</c> to organize at two levels.  Finally, the <attr>empty</attr> attribute can be set to <c>"yes"</c> or <c>"no"</c> (default), depending on whether you wish to show any divisions that have none of the requested elements (obviously only useful if you set <c>divisions</c> to something nonempty).</p>
+
+        <p>Note that an automatic list gets no title or visual separation from surrounding material, so use the usual subdivision elements to make that happen.</p>
     </section>
 
     <section xml:id="topic-url">
@@ -3230,7 +3297,8 @@
                     <li>You can navigate (explore) the expression tree with the up, down, left, and right arrow keys.  The subtitles will change as you do this.</li>
                 </ol></p>
                 <p>From the MathJax demonstration page, Maxwell's equations for practice:<idx>Maxwell's equations</idx><md>
-                    <mrow>\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp; = \frac{4\pi}{c}\vec{\mathbf{j}}</mrow>
+                    <mrow>\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t}
+                    &amp; = \frac{4\pi}{c}\vec{\boldsymbol{\jmath}}</mrow>
                     <mrow>\nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho</mrow>
                     <mrow>\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}}</mrow>
                     <mrow>\nabla \cdot \vec{\mathbf{B}} &amp; = 0</mrow>
@@ -3368,4 +3436,34 @@ A minimal working example may be found in the
 </url><fn><c>examples/sample-slideshow/sample-slideshow.xml</c></fn>.
         </p>
     </section>
+
+    <section xml:id="topic-literate-programming">
+        <title>Literate Programming</title>
+        <idx>literate programming</idx>
+
+        <p>We continue (and do not repeat) the introduction at <xref ref="overview-literate-programming"/>.  <pretext/> implements the literate programming paradigm with two primary elements, <tag>fragment</tag> and <tag>fragref</tag>.</p>
+
+        <p>A <tag>fragment</tag> is a chunk of code.  Almost always it has a <attr>xml:id</attr> attribute.  It begins with a mandatory <tag>title</tag>.  It may have index entries, but see below for advice using the <tag>list-of</tag> element.  Then there is a mix of <tag>code</tag> and <tag>fragref</tag> elements.  The <tag>code</tag> element holds the actual text in whatever computer language you are using.  Line breaks are respected.  Use the <init>XML</init> escape characters <c>&amp;lt;</c> and <c>&amp;amp;</c> if your code needs the <c>&lt;</c> or <c>&amp;</c> characters.  Do not try to use <init>XML</init> markup inside the <tag>code</tag> element.</p>
+
+        <p>A <tag>fragref</tag> is a reference to some other <tag>fragment</tag>.  This is accomplished via the <attr>ref</attr> attribute which points to the target via an <attr>xml:id</attr>.  So this is very similar to an <tag>xref</tag> (<xref ref="overview-cross-references"/>), but not enough alike to have the same element name.   The most important distinction is that the <c>xsl/pretext-litprog.xsl</c> stylesheet will <em>replace</em> the <tag>fragref</tag> with the <em>contents</em> of the target <tag>fragment</tag>.  In other conversions, the <tag>fragref</tag> will be a visual expression of the target <tag>fragment</tag>, possibly with some active means to visit or examine the target (hyperlink, knowl), more similar to an <element>xref</element>.</p>
+
+        <p>So the <c>xsl/pretext-litprog.xsl</c> stylesheet will course through your fragments converting the tree-like structure given by the references in the <tag>fragref</tag> elements into a depth-first traversal that will assemble the <tag>code</tag> elements, and only the <tag>code</tag> elements, linearly into a program.  Notice that it is your job as the author of the program to be certain that this rearrangement results in a syntactically correct program.  (<pretext/> is good, but not that good.)</p>
+
+        <p>If you are with us this far, you are wondering just where the root of this tree is?  In other words, just <em>which</em> <tag>fragment</tag> does this traversal begin with?  Good question.  At least one <tag>fragment</tag> must have a <attr>filename</attr> attribute.  Then a traversal will begin here and your program will be output to the file with the name you specify.  You are not limited to one file/root, so if your program has multiple source files they may be documented/collected into a single <pretext/> source file.  (Notice this implies that every <tag>fragment</tag> <em>must</em> have an <attr>xml:id</attr> or a <attr>filename</attr>.)</p>
+
+        <p>You can place a <tag>fragment</tag> most anywhere you might place any other numbered block (such as <tag>example</tag>), though we would tend to place them as children of divisions.  The remainder of your document can have all the usual <pretext/> features: a table of contents, a preface, divisions, an index, references, etc.  Then a conversion to <init>PDF</init>, <init>HTML</init>, or other formats, will include your code, but in an order that might be more human-readable, and with careful documentation in close proximity.</p>
+
+        <p>Automatically migrating each <tag>fragment</tag> to an index is a bad idea.  (We already experimented.)  Instead you can try putting<cd>
+            <cline>&lt;list-of elements="fragment"/&gt;</cline>
+        </cd>into an <tag>appendix</tag>.  Perhaps a pointer early on to its existence will help your reader.  This list can be subdivided with the use of the <attr>divisions</attr> attribute.  See <xref ref="topic-automatic-lists"/>.  Note that you might still want to provide an index, but remember that its construction is a job for an author (<xref ref="topic-index-advice"/>).</p>
+
+        <p>Literate programming has been developed to support the authoritative <init>RELAX-NG</init> version of the <pretext/> schema.  Since <init>RELAX-NG</init> is a declarative language, the rearrangement of code hunks is not quite as critical.  But still, see <c>schema/pretext.xml</c> for a non-trivial example.  As of 2020-11-11 there are a few caveats.  Start a discussion on the development forum if you have a need.<ul>
+            <li>The conversion to a program has no explicit support for languages which interpret indentation meaningfully (e.g. Python).  The <tag>code</tag> element makes <em>no changes</em>, so you could succeed if authored carefully.  Some sort of relative indentation attribute might be a good solution.</li>
+
+            <li>We do not syntax-highlight the code.  A language attribute might allow us to recycle existing features.</li>
+
+            <li>Numbering is serial from the start of the document.  Raise a feature request if you think hierarchical numbering is indicated.</li>
+        </ul></p>
+    </section>
+
 </chapter>

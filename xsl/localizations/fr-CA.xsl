@@ -19,13 +19,12 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- See  xsl/localizations/README.md  for an explanation of this file -->
 
-<!-- fr-FR, French (France) -->
-<!-- Thomas W. Judson, judsontw@sfasu.edu, 2016-03-23 -->
-<!-- Julien Giol, julien.giol@gmail.com, 2018-02-05   -->
+<!-- fr-CA, French (Canada) -->
+<!-- based on initial fr-FR translation -->
 <!-- Jean-Sébastien Turcotte, js.turcotte@cgodin.qc.ca, 2021-02-19-->
 
-<!-- If/when a new string-id gets translated in French for the first time, it should also be translated into fr-CA -->
-<xsl:variable name="fr-FR">
+<!-- If/when a new string-id gets translated in French for the first time, it should also be translated into fr-FR -->
+<xsl:variable name="fr-CA">
     <!-- THEOREM-LIKE blocks -->
     <!-- Environments which have proofs, plus proofs themselves -->
     <localization string-id="theorem">Théorème</localization>
@@ -100,8 +99,8 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <localization string-id='technology'><xsl:text>Technologie</xsl:text></localization>
     <!-- ASIDE-LIKE blocks -->
     <localization string-id='aside'><xsl:text>Digression</xsl:text></localization>
-    <localization string-id='biographical'><xsl:text>Digression biographique</xsl:text></localization>
-    <localization string-id='historical'><xsl:text>Digression historique</xsl:text></localization>
+    <localization string-id='biographical'><xsl:text>Note biographique</xsl:text></localization> <!-- Knowingly differs from fr-FR, which uses "digression" instead of "note" -->
+    <localization string-id='historical'><xsl:text>Note historique</xsl:text></localization>     <!-- Knowingly differs from fr-FR, which uses "digression" instead of "note" -->
     <!-- EXAMPLE-LIKE blocks -->
     <localization string-id='example'><xsl:text>Exemple</xsl:text></localization> <!--checked-->
     <localization string-id='question'><xsl:text>Question</xsl:text></localization>
@@ -146,7 +145,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <!-- <localization string-id='worksheetexercise'><xsl:text>Worksheet Exercise</xsl:text></localization> -->
     <localization string-id='readingquestion'><xsl:text>Question de compréhension</xsl:text></localization>
     <localization string-id='webwork'><xsl:text>WeBWorK</xsl:text></localization>
-    <localization string-id='hint'><xsl:text>Indication</xsl:text></localization>
+    <localization string-id='hint'><xsl:text>Indice</xsl:text></localization>  <!-- Knowingly differs from fr-FR, which uses "Indication" instead -->
     <localization string-id='answer'><xsl:text>Réponse</xsl:text></localization>
     <localization string-id='solution'><xsl:text>Solution</xsl:text></localization>
      <!-- Front matter components -->

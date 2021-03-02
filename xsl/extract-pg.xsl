@@ -39,7 +39,8 @@
 
 <!-- Each dictionary uses the webworks' visible-ids as keys. There are     -->
 <!-- dictionaries for obtaining:                                           -->
-<!-- 1. a 'ptx'|'server' flag (is it authored in PTX or on the server?)    -->
+<!-- 1. a ptx|server flag (authored in PTX [or a copy], or from server)    -->
+<!-- 1b. if it is copied, from which?                                      -->
 <!-- 2. a seed for randomization (with a default explicitly declared)      -->
 <!-- 3. source (a problem's file path if it is server-based)               -->
 <!-- 4. human readable PG (for PTX-authored)                               -->
@@ -53,10 +54,15 @@
 <!-- that lives on a server. Or if the configuration of the hosting server -->
 <!-- or course changes.                                                    -->
 
-<!-- Then other translation sheets' assempbly phase will factor in         -->
+<!-- Then other translation sheets' assembly phase will factor in          -->
 <!-- webwork-representations.xml                                           -->
 
 <xsl:import href="./pretext-common.xsl" />
+<xsl:import href="./pretext-assembly.xsl"/>
+
+<!-- Override the corresponding param in pretext-assembly so that webwork  -->
+<!-- copies can be made.                                                   -->
+<xsl:variable name="b-extracting-pg" select="true()"/>
 
 <!-- We are outputting Python code, and there is no reason to output       -->
 <!-- anything other than "text"                                            -->
@@ -93,6 +99,7 @@
     <xsl:apply-templates select="mathbook|pretext" mode="deprecation-warnings" />
     <!-- Initialize empty dictionaries, then define key-value pairs -->
     <xsl:text>origin = {}&#xa;</xsl:text>
+    <xsl:text>copiedfrom = {}&#xa;</xsl:text>
     <xsl:text>seed = {}&#xa;</xsl:text>
     <xsl:text>source = {}&#xa;</xsl:text>
     <xsl:text>pghuman = {}&#xa;</xsl:text>
@@ -109,7 +116,7 @@
     <xsl:variable name="problem">
         <xsl:apply-templates select="." mode="visible-id" />
     </xsl:variable>
-    <!-- 1. a 'ptx'|'server' flag (is it authored in PTX or on the server?)    -->
+    <!-- 1. a ptx|copy|server flag (authored in PTX, a copy, or from server)   -->
     <xsl:text>origin["</xsl:text>
     <xsl:value-of select="$problem" />
     <xsl:text>"] = "server"&#xa;</xsl:text>
@@ -132,10 +139,18 @@
     <xsl:variable name="problem">
         <xsl:apply-templates select="." mode="visible-id" />
     </xsl:variable>
-    <!-- 1. a 'ptx'|'server' flag (is it authored in PTX or on the server?)    -->
+    <!-- 1. a ptx|server flag (authored in PTX [or a copy], or from server)    -->
     <xsl:text>origin["</xsl:text>
     <xsl:value-of select="$problem" />
     <xsl:text>"] = "ptx"&#xa;</xsl:text>
+    <!-- 1b. if this problem is a copy, record where it was copied from        -->
+    <xsl:if test="@copied-from">
+        <xsl:text>copiedfrom["</xsl:text>
+        <xsl:value-of select="$problem" />
+        <xsl:text>"] = "</xsl:text>
+        <xsl:value-of select="@copied-from"/>
+        <xsl:text>"&#xa;</xsl:text>
+    </xsl:if>
     <!-- 2. a seed for randomization (with a default explicitly declared)      -->
     <xsl:text>seed["</xsl:text>
     <xsl:value-of select="$problem" />
@@ -1364,7 +1379,7 @@
 <!-- PGML Image Construction -->
 <!-- ####################### -->
 
-<xsl:template match="image[@pg-name]">
+<xsl:template match="image[@pg-name]" mode="components">
     <xsl:variable name="width">
         <xsl:apply-templates select="." mode="get-width-percentage" />
     </xsl:variable>
@@ -1390,7 +1405,7 @@
 <!-- is to give the reader something like keyboard syntax instructions     -->
 <!-- but withhold these in print output.                                   -->
 <xsl:template match="instruction">
-    <xsl:if test="preceding-sibling::p|preceding-sibling::sidebyside and not(child::*[1][self::ol] or child::*[1][self::ul])">
+    <xsl:if test="preceding-sibling::p and not(child::*[1][self::ol] or child::*[1][self::ul])">
         <xsl:call-template name="potential-list-indent" />
     </xsl:if>
     <xsl:text>[@KeyboardInstructions(</xsl:text>
@@ -1450,7 +1465,7 @@
 <!-- inside a list, special handling                                      -->
 <xsl:template match="p">
     <xsl:param name="b-human-readable" />
-    <xsl:if test="preceding-sibling::p|preceding-sibling::sidebyside and not(child::*[1][self::ol] or child::*[1][self::ul])">
+    <xsl:if test="preceding-sibling::p and not(child::*[1][self::ol] or child::*[1][self::ul])">
         <xsl:call-template name="potential-list-indent" />
     </xsl:if>
     <xsl:apply-templates>
@@ -1467,19 +1482,21 @@
     </xsl:if>
 </xsl:template>
 
-<!-- Sidebyside in a WeBWorK expects only one child: image or tabular.    -->
-<!-- Just applies templates to its child                                  -->
-<!-- NB: this may need improvements, such as positioning                  -->
-<!-- NB: a Schematron rule should enforce the single child                -->
-<xsl:template match="sidebyside">
+<!-- Some common wrappers for image and tabular   -->
+<!-- Formerly this template was for sidebyside    -->
+<!-- And we leave it to also work on a sidebyside -->
+<!-- for backwards compatibility. However, such   -->
+<!-- use will be caught by a deprectation warning -->
+<!-- as well as fail a schema validation.         -->
+<xsl:template match="image|tabular|sidebyside">
     <xsl:param name="b-human-readable" />
-    <xsl:if test="preceding-sibling::p|preceding-sibling::sidebyside">
+    <xsl:if test="preceding-sibling::p">
         <xsl:call-template name="potential-list-indent" />
     </xsl:if>
     <xsl:if test="not(ancestor::li)">
         <xsl:text>&gt;&gt; </xsl:text>
     </xsl:if>
-    <xsl:apply-templates select="image|tabular">
+    <xsl:apply-templates select="self::image|self::tabular|self::sidebyside/image|self::sidebyside/tabular" mode="components">
         <xsl:with-param name="b-human-readable" select="$b-human-readable" />
     </xsl:apply-templates>
     <xsl:if test="not(ancestor::li)">
@@ -1693,6 +1710,51 @@
     <xsl:apply-templates select="parent::*" mode="alignat-columns"/>
     <xsl:text>&#xa;</xsl:text>
 </xsl:template>
+
+<!-- ######### -->
+<!-- Groupings -->
+<!-- ######### -->
+
+<!-- We cannot rely on the -common templates for these,   -->
+<!-- because if they contain math, we need to respect the -->
+<!-- human readable parameter.                            -->
+
+<xsl:template match="q">
+    <xsl:param name="b-human-readable" />
+    <xsl:call-template name="lq-character"/>
+    <xsl:apply-templates>
+        <xsl:with-param name="b-human-readable" select="$b-human-readable" />
+    </xsl:apply-templates>
+    <xsl:call-template name="rq-character"/>
+</xsl:template>
+
+<xsl:template match="sq">
+    <xsl:param name="b-human-readable" />
+    <xsl:call-template name="lsq-character"/>
+    <xsl:apply-templates>
+        <xsl:with-param name="b-human-readable" select="$b-human-readable" />
+    </xsl:apply-templates>
+    <xsl:call-template name="rsq-character"/>
+</xsl:template>
+
+<xsl:template match="dblbrackets">
+    <xsl:param name="b-human-readable" />
+    <xsl:call-template name="ldblbracket-character"/>
+    <xsl:apply-templates>
+        <xsl:with-param name="b-human-readable" select="$b-human-readable" />
+    </xsl:apply-templates>
+    <xsl:call-template name="rdblbracket-character"/>
+</xsl:template>
+
+<xsl:template match="angles">
+    <xsl:param name="b-human-readable" />
+    <xsl:call-template name="langle-character"/>
+    <xsl:apply-templates>
+        <xsl:with-param name="b-human-readable" select="$b-human-readable" />
+    </xsl:apply-templates>
+    <xsl:call-template name="rangle-character"/>
+</xsl:template>
+
 
 <!-- ########################## -->
 <!-- Numbers, units, quantities -->
@@ -2317,7 +2379,7 @@
     </xsl:apply-templates>
 </xsl:template>
 
-<xsl:template match="tabular">
+<xsl:template match="tabular" mode="components">
     <!-- PTX tabular attributes top, bottom, left, right, halign are essentially passed -->
     <!-- down to cells, rather than used at the tabular level.                          -->
     <xsl:param name="b-human-readable" />
